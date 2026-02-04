@@ -63,8 +63,8 @@ git commit -m "Initial commit: PDF Merger Tool
 ### 步骤3: 关联远程仓库并推送
 
 ```bash
-# 关联GitHub仓库（替换成你的用户名）
-git remote add origin https://github.com/你的用户名/pdf-merger-tool.git
+# 关联GitHub仓库
+git remote add origin https://github.com/xiangjing-source/pdf-merger-tool.git
 
 # 设置默认分支名
 git branch -M main
@@ -197,8 +197,8 @@ git push
 ## 🎉 完成！
 
 上传成功后，你的项目将在：
-- **代码仓库**: https://github.com/你的用户名/pdf-merger-tool
-- **Release页面**: https://github.com/你的用户名/pdf-merger-tool/releases
+- **代码仓库**: https://github.com/xiangjing-source/pdf-merger-tool
+- **Release页面**: https://github.com/xiangjing-source/pdf-merger-tool/releases
 
 其他人可以：
 - 查看源代码

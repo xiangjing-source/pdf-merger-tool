@@ -18,7 +18,7 @@
 
 ```bash
 # 从Release下载
-wget https://github.com/你的用户名/pdf-merger-tool/releases/download/v1.0/pdfmerge-linux
+wget https://github.com/xiangjing-source/pdf-merger-tool/releases/download/v1.0/pdfmerge-linux
 chmod +x pdfmerge-linux
 
 # 安装到系统（可选）
@@ -33,7 +33,7 @@ pdfmerge file1.pdf file2.pdf -o output.pdf
 #### 1. 克隆仓库
 
 ```bash
-git clone https://github.com/你的用户名/pdf-merger-tool.git
+git clone https://github.com/xiangjing-source/pdf-merger-tool.git
 cd pdf-merger-tool
 ```
 
@@ -183,4 +183,4 @@ MIT License - 自由使用、修改和分发
 
 **快速开始**: `pdfmerge file1.pdf file2.pdf -o output.pdf`
 
-**项目主页**: https://github.com/你的用户名/pdf-merger-tool
+**项目主页**: https://github.com/xiangjing-source/pdf-merger-tool
