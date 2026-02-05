@@ -53,8 +53,8 @@ def find_pdfs_in_directory(directory: str) -> list:
     return pdf_files
 
 
-def main():
-    """主函数"""
+def run_cli(argv=None):
+    """命令行入口（可复用）"""
     parser = argparse.ArgumentParser(
         description='PDF合并工具 - 快速、本地、隐私安全',
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -98,7 +98,7 @@ def main():
         help='显示详细信息'
     )
     
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     
     # 收集所有PDF文件
     pdf_files = []
@@ -178,5 +178,10 @@ def main():
         return 1
 
 
+def main():
+    """兼容旧入口"""
+    return run_cli()
+
+
 if __name__ == '__main__':
-    sys.exit(main())
+    sys.exit(run_cli())

@@ -4,14 +4,10 @@ __pycache__/
 *$py.class
 *.so
 .Python
-
-# 虚拟环境
 venv/
 pdf-venv/
 env/
 ENV/
-
-# PyInstaller
 build/
 dist/
 *.egg-info/
@@ -22,15 +18,16 @@ dist/
 .idea/
 *.swp
 *.swo
-.DS_Store
 
 # 测试
 .pytest_cache/
 .coverage
 htmlcov/
 
-# 输出文件（测试生成的）
+# 输出文件
 merged*.pdf
 output*.pdf
-test_pdfs/
+
+# 临时文件
 *.tmp
+.DS_Store
