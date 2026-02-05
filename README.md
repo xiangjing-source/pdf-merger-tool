@@ -20,11 +20,18 @@
 前往 [Releases](https://github.com/xiangjing-source/pdf-merger-tool/releases) 下载对应平台的安装包：
 
 #### Windows 用户
-1. 下载 `pdfmerge-windows.exe`
-2. 双击运行或在命令行使用：
+1. 下载 `pdfmerge-windows.exe` 到任意文件夹
+2. **在命令提示符（CMD）或 PowerShell 中使用**：
    ```cmd
+   # 切换到 pdfmerge-windows.exe 所在目录
+   cd C:\path\to\download\folder
+   
+   # 运行合并命令
    pdfmerge-windows.exe file1.pdf file2.pdf -o output.pdf
    ```
+   
+   > ⚠️ **注意**：这是命令行工具，**不要双击运行**（会闪退）！必须在 CMD/PowerShell 中使用。
+   
    > 💡 提示：首次运行可能被 Windows Defender 拦截，选择"仍要运行"即可
 
 #### macOS 用户
@@ -173,6 +180,21 @@ python tests/test_merge.py
 
 ## ❓ 常见问题
 
+### Q: Windows 版本双击后闪退怎么办？
+A: **这是正常的！** 这是一个命令行工具（CLI），不是图形界面程序。必须在 CMD 或 PowerShell 中使用命令运行，不能直接双击。
+
+**正确使用方法**：
+```cmd
+# 1. 按 Win + R，输入 cmd，回车打开命令提示符
+# 2. 切换到 exe 所在目录
+cd C:\Users\YourName\Downloads
+
+# 3. 运行命令
+pdfmerge-windows.exe file1.pdf file2.pdf -o output.pdf
+```
+
+**可选**：如果想要图形界面，可以考虑使用批处理脚本包装，或等待未来的 GUI 版本。
+
 ### Q: 文件夹中的PDF按什么顺序合并？
 A: 按文件名字母顺序。建议给文件加数字前缀控制顺序（如 `01_`, `02_`）
 
@@ -182,8 +204,17 @@ A: 默认压缩，可节省约45%空间，速度影响可忽略。使用 `--no-c
 ### Q: 支持加密的PDF吗？
 A: 暂不支持加密PDF
 
-### Q: Windows/Mac有可执行文件吗？
-A: 当前只提供Linux版本。其他平台请从源码运行或自行打包
+### Q: 如何在 Windows 上全局使用（任意目录都能运行）？
+A: 将 `pdfmerge-windows.exe` 复制到系统 PATH 目录，或添加自定义目录到 PATH 环境变量。
+
+**快速方法**：
+```cmd
+# 复制到 Windows\System32 目录（需要管理员权限）
+copy pdfmerge-windows.exe C:\Windows\System32\pdfmerge.exe
+
+# 之后在任意目录都可以直接使用
+pdfmerge file1.pdf file2.pdf -o output.pdf
+```
 
 ## 🗑️ 卸载
 
