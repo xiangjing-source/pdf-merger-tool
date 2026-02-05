@@ -35,18 +35,12 @@ jobs:
 
       - name: "Build pdfmerge (single entry: GUI+CLI)"
         run: |
-          pyinstaller --onefile --name pdfmerge --clean --noconfirm src/app.py
-          
-          - name: Rename artifacts for release
-            shell: bash
-            run: |
-              if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
-                mv dist/pdfmerge.exe "dist/pdfmerge-windows.exe"
-              elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
-                mv dist/pdfmerge "dist/pdfmerge-macos"
-              else
-                mv dist/pdfmerge "dist/pdfmerge-linux"
-              fi
+          python -m PyInstaller --onefile --name pdfmerge --clean --noconfirm src/app.py
+
+      - name: Rename artifacts for release
+        shell: bash
+        run: |
+          python -c "import os,shutil; os_name=os.getenv('RUNNER_OS','').lower(); src='dist/pdfmerge.exe' if os_name.startswith('windows') else 'dist/pdfmerge'; dst='dist/pdfmerge-windows.exe' if os_name.startswith('windows') else ('dist/pdfmerge-macos' if os_name.startswith('mac') else 'dist/pdfmerge-linux'); shutil.move(src,dst); print(f'renamed {src} -> {dst}')"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
@@ -58,4 +52,4 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-             files: dist/*
+          files: dist/*
