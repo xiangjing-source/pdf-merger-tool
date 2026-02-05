@@ -9,16 +9,39 @@
 - ✅ **简单易用** - 一个命令搞定
 - ✅ **支持大文件** - 优化内存使用，处理100+页无压力
 - ✅ **全局命令** - 安装后任何目录都可使用
+- ✅ **跨平台支持** - 提供 Windows、macOS、Linux 三平台安装包
 
 ## 🚀 快速开始
 
-### Linux用户（推荐 - 开箱即用）
+### 方式1：下载预编译安装包（推荐 - 开箱即用）
 
-下载预编译的可执行文件（无需Python环境）：
+> 📦 **无需安装 Python 环境，下载即用！**
 
+前往 [Releases](https://github.com/xiangjing-source/pdf-merger-tool/releases) 下载对应平台的安装包：
+
+#### Windows 用户
+1. 下载 `pdfmerge-windows.exe`
+2. 双击运行或在命令行使用：
+   ```cmd
+   pdfmerge-windows.exe file1.pdf file2.pdf -o output.pdf
+   ```
+   > 💡 提示：首次运行可能被 Windows Defender 拦截，选择"仍要运行"即可
+
+#### macOS 用户
 ```bash
-# 从Release下载
-wget https://github.com/xiangjing-source/pdf-merger-tool/releases/download/v1.0/pdfmerge-linux
+# 下载安装包
+curl -L -o pdfmerge https://github.com/xiangjing-source/pdf-merger-tool/releases/latest/download/pdfmerge-macos
+chmod +x pdfmerge
+
+# 使用
+./pdfmerge file1.pdf file2.pdf -o output.pdf
+```
+> 💡 提示：首次运行需右键选择"打开"以绕过安全限制
+
+#### Linux 用户
+```bash
+# 下载安装包
+wget https://github.com/xiangjing-source/pdf-merger-tool/releases/latest/download/pdfmerge-linux
 chmod +x pdfmerge-linux
 
 # 安装到系统（可选）
@@ -28,7 +51,7 @@ sudo cp pdfmerge-linux /usr/local/bin/pdfmerge
 pdfmerge file1.pdf file2.pdf -o output.pdf
 ```
 
-### 从源码安装（所有平台）
+### 方式2：从源码安装
 
 #### 1. 克隆仓库
 
