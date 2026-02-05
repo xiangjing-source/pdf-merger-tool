@@ -83,6 +83,8 @@ export PATH="$HOME/.local/bin:$PATH"
 1. 进入 Release 页面下载 `pdfmerge.exe`
 2. 将它们放到任意目录（例如 `C:\Tools\pdf`）
 3. 将该目录加入系统环境变量 `Path`
+4. 有管理员权限也可以直接把`pdfmerge.exe`加入系统盘`C:\Windows\system32`
+5. 之后可在 CMD/PowerShell 中直接调用 `pdfmerge`
 
 ### macOS
 1. 进入 Release 页面下载 `pdfmerge`

@@ -144,8 +144,20 @@ class MainWindow:
                 rb_time.pack(side=tk.LEFT, padx=4)
                 tk.Button(ctrlbar, text="刷新", command=self._refresh, font=self.font).pack(side=tk.LEFT, padx=6)
 
-                # 文件列表：名称 + 修改时间
-                self.tree = ttk.Treeview(self, columns=("name", "mtime"), show="headings", selectmode="extended")
+                # 文件列表：名称 + 修改时间（动态行高避免被裁剪）
+                try:
+                    from tkinter import font as tkfont
+                    font_obj = self.font if isinstance(self.font, tkfont.Font) else tkfont.nametofont("TkDefaultFont")
+                    linespace = font_obj.metrics("linespace")
+                    rowheight = max(linespace + 8, 24)
+                    style = ttk.Style(self)
+                    style.configure("Custom.Treeview", rowheight=rowheight, font=font_obj)
+                    style.configure("Custom.Treeview.Heading", font=font_obj)
+                    tree_style = "Custom.Treeview"
+                except Exception:
+                    tree_style = "Treeview"
+
+                self.tree = ttk.Treeview(self, columns=("name", "mtime"), show="headings", selectmode="extended", style=tree_style)
                 self.tree.heading("name", text="文件名")
                 self.tree.heading("mtime", text="修改时间")
                 self.tree.column("name", width=420, anchor="w")
