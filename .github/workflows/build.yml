@@ -33,7 +33,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt pyinstaller
 
-  - name: "Build pdfmerge (single entry: GUI+CLI)"
+      - name: "Build pdfmerge (single entry: GUI+CLI)"
         run: |
           pyinstaller --onefile --name pdfmerge --clean --noconfirm src/app.py
 
