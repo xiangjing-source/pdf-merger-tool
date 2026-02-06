@@ -9,14 +9,8 @@ def main():
         from main import run_cli
         return run_cli(sys.argv[1:])
 
-    # 无参数启动 GUI 时，Windows 上隐藏控制台窗口
-    if sys.platform.startswith("win"):
-        try:
-            import ctypes
-            ctypes.windll.kernel32.FreeConsole()
-        except Exception:
-            pass
-
+    # 无参数启动 GUI
+    # 注意：Windows 版本在打包时使用 --noconsole 参数，无需额外处理
     from gui import run_gui
     run_gui()
     return 0
