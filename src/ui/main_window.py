@@ -116,10 +116,10 @@ class MainWindow:
                 self.title("选择 PDF 文件")
                 self.transient(parent)
                 self.grab_set()
-                self.geometry("700x480")
+                self.geometry("700x520")
                 self.configure(padx=8, pady=8)
                 # 设置最小窗口大小，确保按钮栏始终可见
-                self.minsize(600, 400)
+                self.minsize(600, 450)
                 self.font = font
                 self._debounce_id = None
                 self._build()
@@ -159,11 +159,11 @@ class MainWindow:
                 except Exception:
                     tree_style = "Treeview"
 
-                # 使用 Frame 包装 Treeview 和滚动条，确保按钮栏不被挤出
+                # 使用 Frame 包装 Treeview 和滚动条
                 tree_frame = tk.Frame(self)
-                tree_frame.pack(fill=tk.BOTH, expand=True, pady=6)
+                tree_frame.pack(fill=tk.BOTH, expand=False, pady=6)
                 
-                self.tree = ttk.Treeview(tree_frame, columns=("name", "mtime"), show="headings", selectmode="extended", style=tree_style, height=12)
+                self.tree = ttk.Treeview(tree_frame, columns=("name", "mtime"), show="headings", selectmode="extended", style=tree_style, height=10)
                 self.tree.heading("name", text="文件名")
                 self.tree.heading("mtime", text="修改时间")
                 self.tree.column("name", width=420, anchor="w")
@@ -177,8 +177,9 @@ class MainWindow:
                 scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
                 self.tree.bind("<Double-1>", lambda e: self._add_selected())
 
+                # 按钮栏：明确使用 BOTTOM 定位，确保始终可见
                 btnbar = tk.Frame(self)
-                btnbar.pack(fill=tk.X)
+                btnbar.pack(side=tk.BOTTOM, fill=tk.X, pady=(8, 0))
                 # 明确创建按钮对象以便设置默认/焦点行为
                 open_btn = tk.Button(btnbar, text="打开", command=self._add_selected, font=self.font)
                 open_btn.pack(side=tk.RIGHT, padx=6)
