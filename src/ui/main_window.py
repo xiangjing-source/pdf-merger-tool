@@ -116,8 +116,10 @@ class MainWindow:
                 self.title("选择 PDF 文件")
                 self.transient(parent)
                 self.grab_set()
-                self.geometry("700x420")
+                self.geometry("700x480")
                 self.configure(padx=8, pady=8)
+                # 设置最小窗口大小，确保按钮栏始终可见
+                self.minsize(600, 400)
                 self.font = font
                 self._debounce_id = None
                 self._build()
@@ -157,18 +159,45 @@ class MainWindow:
                 except Exception:
                     tree_style = "Treeview"
 
-                self.tree = ttk.Treeview(self, columns=("name", "mtime"), show="headings", selectmode="extended", style=tree_style)
+                # 使用 Frame 包装 Treeview 和滚动条，确保按钮栏不被挤出
+                tree_frame = tk.Frame(self)
+                tree_frame.pack(fill=tk.BOTH, expand=True, pady=6)
+                
+                self.tree = ttk.Treeview(tree_frame, columns=("name", "mtime"), show="headings", selectmode="extended", style=tree_style, height=12)
                 self.tree.heading("name", text="文件名")
                 self.tree.heading("mtime", text="修改时间")
                 self.tree.column("name", width=420, anchor="w")
                 self.tree.column("mtime", width=180, anchor="w")
-                self.tree.pack(fill=tk.BOTH, expand=True, pady=6)
+                
+                # 添加垂直滚动条
+                scrollbar = tk.Scrollbar(tree_frame, orient=tk.VERTICAL, command=self.tree.yview)
+                self.tree.configure(yscrollcommand=scrollbar.set)
+                
+                self.tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+                scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
                 self.tree.bind("<Double-1>", lambda e: self._add_selected())
 
                 btnbar = tk.Frame(self)
                 btnbar.pack(fill=tk.X)
-                tk.Button(btnbar, text="打开", command=self._add_selected, font=self.font).pack(side=tk.RIGHT, padx=6)
-                tk.Button(btnbar, text="取消", command=self._cancel, font=self.font).pack(side=tk.RIGHT)
+                # 明确创建按钮对象以便设置默认/焦点行为
+                open_btn = tk.Button(btnbar, text="打开", command=self._add_selected, font=self.font)
+                open_btn.pack(side=tk.RIGHT, padx=6)
+                cancel_btn = tk.Button(btnbar, text="取消", command=self._cancel, font=self.font)
+                cancel_btn.pack(side=tk.RIGHT)
+
+                # 键盘绑定：回车相当于打开，Esc 相当于取消
+                # 绑定到顶层窗体，便于用户在任何子控件上按键时生效
+                self.bind('<Return>', lambda e: self._add_selected())
+                self.bind('<Escape>', lambda e: self._cancel())
+
+                # 确保树视图在打开时获取焦点，这样用户可以用方向键、多选后按回车
+                try:
+                    self.tree.focus_set()
+                except Exception:
+                    pass
+
+                # 把窗口关闭事件当作取消处理
+                self.protocol('WM_DELETE_WINDOW', self._cancel)
 
                 self._refresh()
 
